@@ -1,42 +1,53 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
+			contacts: [
 				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
+					"id": "1",
+					"full_name": "Dave Bradley",
+					"email": "dave@gmail.com",
+					"agenda_slug": "KarenContacts",
+					"address": "47568 NW 34ST, 33434 FL, USA",
+					"phone": "7864445566"
 				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
+				
 			]
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			getAllContacts: () => {
+				fetch("https://playground.4geeks.com/apis/fake/contact/agenda/KarenContacts").then(data => data.json())
+					.then(data => data);
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+			createContact: (contact) => {fetch("https://playground.4geeks.com/apis/fake/contact/" ,{
+            method : 'POST',
+			headers: {
+                'Content-type': 'application/json'
+            },
+			body: contact
+			})
+				// mando al servidor
 			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
+			addContact: () => { },
+			updateContact: () => {
+				// actualizar servidor....
+				getStore();
+			},
+			fetchDeleteContact: (id) => { return console.log(`borrando del server el contact con id ${id}`) },
+			deleteContact: (id) => {
+				const prevStore = getStore();
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+				const actions = getActions();
 
-				//reset the global store
-				setStore({ demo: demo });
+				const newContacts = prevStore.contacts.filter(contact => contact.id !== id);
+
+
+				const newStore = {
+					...prevStore,
+					contacts: newContacts
+				}
+
+				setStore(newStore);
+				actions.fetchDeleteContact(id);
 			}
 		}
 	};
