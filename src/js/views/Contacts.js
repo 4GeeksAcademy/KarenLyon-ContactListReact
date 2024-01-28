@@ -8,14 +8,9 @@ import { useNavigate } from "react-router-dom";
 
 
 export const Contacts = () => {
-	const context = useContext(Context);
-
-	// const store = context.store;
-
-	// const actions = context.actions;
 
 	const { store, actions } = useContext(Context);
-
+       
 	const { deleteContact } = actions;
 	const navigate = useNavigate();
 
@@ -45,10 +40,11 @@ export const Contacts = () => {
 										{element.phone}
 									</div>
 									<div >
-										<Button bg="primary" className="m-2">
+										<Button bg="primary" onClick={() => {navigate(`/EditContactForm/${element.id}`)}} className="m-2">
 											Edit
 										</Button>
-										<Button onClick={() => deleteContact(element.id)} bg="primary" className="m-2">
+										<Button onClick={() => {deleteContact(element.id); 
+											}}bg="primary" className="m-2">
 											Trash
 										</Button>
 									</div>

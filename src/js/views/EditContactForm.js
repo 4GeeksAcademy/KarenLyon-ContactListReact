@@ -1,29 +1,39 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export const ContactForm = () => {
-  const {actions } = useContext(Context);
+export const EditContactForm = () => {
+  const {id} = useParams()
+  
+  const {actions , store} = useContext(Context);
 
   const [name,setName] = useState("");
   const [email,setEmail] = useState("");
   const [phone,setPhone]= useState("");
   const [address,setAddress] = useState("");
-
+  
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    const contact = store.contacts.find(c => c.id == id)
+    if (!contact) return 
+    setName(contact.full_name)
+    setEmail(contact.email)
+    setAddress(contact.address)
+    setPhone(contact.phone)
+  },[store.contacts])
 
-  const createContact = () => {
+  const updateContact = () => {
    
-    actions.addContact(
+    actions.updateContact(
       {
         "full_name": name,
         "email": email,
         "agenda_slug": "karen_contacts",
         "address": address,
         "phone": phone,
-      })
+      },id)
  
       navigate("/")
 
@@ -48,8 +58,11 @@ export const ContactForm = () => {
         <input value={phone} onChange={e => setPhone(e.target.value)} type="text" className="form-control" id="formGroupExampleInput4" placeholder="Enter Phone" />
       </div>
       <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="button" onClick={createContact}>Button</button>
+        <button class="btn btn-primary" type="button" onClick={updateContact}>Button</button>
       </div>
+
+      {/* <link to="/">Back to agenda</link>   */}
+
     </div>)
 
 }

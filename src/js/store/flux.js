@@ -2,37 +2,74 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			contacts: [
-				{
-					"id": "1",
-					"full_name": "Dave Bradley",
-					"email": "dave@gmail.com",
-					"agenda_slug": "KarenContacts",
-					"address": "47568 NW 34ST, 33434 FL, USA",
-					"phone": "7864445566"
-				},
-				
-			]
+
+			],
 		},
 		actions: {
 			getAllContacts: () => {
-				fetch("https://playground.4geeks.com/apis/fake/contact/agenda/KarenContacts").then(data => data.json())
-					.then(data => data);
+				fetch("https://playground.4geeks.com/apis/fake/contact/agenda/karen_contacts").then(data => data.json())
+					.then(data => setStore({ contacts: data }));
 			},
-			createContact: (contact) => {fetch("https://playground.4geeks.com/apis/fake/contact/" ,{
-            method : 'POST',
-			headers: {
-                'Content-type': 'application/json'
-            },
-			body: contact
-			})
+			createContact: (contact) => {
+				fetch("https://playground.4geeks.com/apis/fake/contact/", {
+					method: 'POST',
+					headers: {
+						'Content-type': 'application/json'
+					},
+					body: JSON.stringify(contact)
+				})
 				// mando al servidor
 			},
-			addContact: () => { },
-			updateContact: () => {
-				// actualizar servidor....
-				getStore();
+			addContact: (contact) => {
+				const prevStore = getStore();
+				const actions = getActions();
+
+				const newContacts = [...prevStore.contacts, contact]
+
+
+				const newStore = {
+					...prevStore,
+					contacts: newContacts
+				}
+
+				setStore(newStore);
+				actions.createContact(contact);
+
 			},
-			fetchDeleteContact: (id) => { return console.log(`borrando del server el contact con id ${id}`) },
+			updateContact: (contact, id) => {
+				fetch(`https://playground.4geeks.com/apis/fake/contact/${id}`, {
+					method: 'PUT',
+					body: JSON.stringify(contact),
+					headers: {
+						'Content-type': 'application/json'
+					}
+				})
+                
+
+				const prevStore = getStore();
+
+				const index= prevStore.contacts.findIndex(contact => contact.id == id);
+                
+				const newContacts = [...prevStore.contacts]
+                newContacts[index]= contact
+
+				const newStore = {
+					...prevStore,
+					contacts: newContacts
+				}
+
+				setStore(newStore);
+			},
+
+			fetchDeleteContact: (id) => {
+				fetch(`https://playground.4geeks.com/apis/fake/contact/${id}`, {
+					method: 'DELETE',
+					headers: {
+						'Content-type': 'application/json'
+					},
+				})
+			},
+
 			deleteContact: (id) => {
 				const prevStore = getStore();
 
