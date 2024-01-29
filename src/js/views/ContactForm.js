@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import "../../styles/home.css";
+import "../../styles/index.css";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 
@@ -31,7 +31,7 @@ export const ContactForm = () => {
 
   return (
     <div className="p-5">
-      <div className="mb-3">
+      <div className="mb-3"> 
         <label for="formGroupExampleInput" className="form-label">Full Name</label>
         <input value={name} onChange={e => setName(e.target.value)} type="text" className="form-control" id="formGroupExampleInput" placeholder="Full Name" />
       </div>

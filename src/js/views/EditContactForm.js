@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import "../../styles/home.css";
+import "../../styles/index.css";
 import { Context } from "../store/appContext";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -61,7 +61,7 @@ export const EditContactForm = () => {
         <button class="btn btn-primary" type="button" onClick={updateContact}>Button</button>
       </div>
 
-      {/* <link to="/">Back to agenda</link>   */}
+     
 
     </div>)
 
