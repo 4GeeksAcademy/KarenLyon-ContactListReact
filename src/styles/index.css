@@ -6,4 +6,12 @@
 .content {
     margin-left: 50px;
     text-align: left;
+    width: 70%;
+}
+
+.buttons {
+    justify-content: end;
+}
+.oneContact{
+    margin: 10px;
 }

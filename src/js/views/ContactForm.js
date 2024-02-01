@@ -48,7 +48,7 @@ export const ContactForm = () => {
         <input value={phone} onChange={e => setPhone(e.target.value)} type="text" className="form-control" id="formGroupExampleInput4" placeholder="Enter Phone" />
       </div>
       <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="button" onClick={createContact}>Button</button>
+        <button class="btn btn-primary" type="button" onClick={createContact}>Add Contact</button>
       </div>
     </div>)
 

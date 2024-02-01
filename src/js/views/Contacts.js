@@ -5,12 +5,12 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import UserImage from "./RandomImg";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const Contacts = () => {
 
 	const { store, actions } = useContext(Context);
-       
+
 	const { deleteContact } = actions;
 	const navigate = useNavigate();
 
@@ -21,10 +21,13 @@ export const Contacts = () => {
 		<div className="text-center mt-2">
 
 
-			<div className="m-5">
+			<div className="m-5 d-flex p-3">
 				<h1>Lista de contactos:</h1>
+				<Button onClick={() => { navigate("/ContactForm") }} style={{ marginLeft: '60%' }} variant="warning">
+					Add Contact
+				</Button>
 			</div>
-			< div className="p-5">
+			< div className="contactBox">
 				<ul>
 					{
 						store.contacts.map((element) => {
@@ -32,8 +35,8 @@ export const Contacts = () => {
 								<ListGroup.Item
 									as="li"
 									key={element.id}
-									className="d-flex"
-									style={{ height: '100px' }}
+									className="d-flex oneContact"
+									style={{ height: '150px', marginBottom: '50px', borderBottom: '1px solid' }}
 								>
 									<UserImage />
 									<div className="content">
@@ -43,13 +46,14 @@ export const Contacts = () => {
 										<div className="email">{element.email}  </div>
 										<div className="address">{element.address}  </div>
 									</div>
-									<div  className="buttons">
-										<Button bg="primary" onClick={() => {navigate(`/EditContactForm/${element.id}`)}} className="m-2">
-											Edit
+									<div className="buttons">
+										<Button variant="dark" onClick={() => { navigate(`/EditContactForm/${element.id}`) }} className="m-2">
+											<i class="fa-solid fa-pen"></i>
 										</Button>
-										<Button onClick={() => {deleteContact(element.id); 
-											}}bg="primary" className="m-2">
-											Trash
+										<Button onClick={() => {
+											deleteContact(element.id);
+										}} variant="danger" className="m-2">
+											<i class="fa-solid fa-trash"></i>
 										</Button>
 									</div>
 								</ListGroup.Item>
@@ -58,9 +62,7 @@ export const Contacts = () => {
 				</ul>
 
 				<div>
-					<Button onClick={() => {navigate("/ContactForm")}}>
-						Add Contact
-					</Button>
+
 				</div>
 			</div>
 		</div>
