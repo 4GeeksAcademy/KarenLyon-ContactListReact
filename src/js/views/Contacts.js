@@ -5,7 +5,6 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import UserImage from "./RandomImg";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const Contacts = () => {
 
