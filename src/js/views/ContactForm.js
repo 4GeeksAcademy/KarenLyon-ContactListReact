@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import "../../styles/index.css";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 export const ContactForm = () => {
   const {actions } = useContext(Context);
@@ -49,6 +51,9 @@ export const ContactForm = () => {
       </div>
       <div class="d-grid gap-2">
         <button class="btn btn-primary" type="button" onClick={createContact}>Add Contact</button>
+      </div>
+      <div>
+      <Link to="/">Take me Contact List</Link>
       </div>
     </div>)
 

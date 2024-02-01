@@ -22,8 +22,8 @@ export const Contacts = () => {
 
 
 			<div className="m-5 d-flex p-3">
-				<h1>Lista de contactos:</h1>
-				<Button onClick={() => { navigate("/ContactForm") }} style={{ marginLeft: '60%' }} variant="warning">
+				<h1>Contact List:</h1>
+				<Button onClick={() => { navigate("/ContactForm") }} style={{ marginLeft: '70%' }} variant="warning">
 					Add Contact
 				</Button>
 			</div>
@@ -61,9 +61,7 @@ export const Contacts = () => {
 						})}
 				</ul>
 
-				<div>
-
-				</div>
+	
 			</div>
 		</div>
 
